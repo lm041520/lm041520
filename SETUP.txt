@@ -1,0 +1,50 @@
+# 个人主页仓库（Profile README）
+
+这是 GitHub **官方特殊仓库**：仓库名必须等于用户名 `lm041520`。
+其中的 `README.md` 会显示在 https://github.com/lm041520 主页顶部。
+
+官方说明：
+https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme
+
+## 已包含
+
+1. **个人介绍 + 精选项目 + 技术栈**
+2. **GitHub Stats / Top Langs / Streak**（第三方卡片）
+3. **贡献蛇图**：Actions 每天生成 SVG，推到 `output` 分支
+4. **今日一句**：Actions 每天随机刷新一句，并更新页脚时间
+
+## 创建并推送
+
+在 GitHub 网页：
+
+1. New repository
+2. 仓库名填：`lm041520`（必须与用户名完全一致）
+3. Public，**先不要**勾选 Add README（本地已有）
+4. Create repository
+
+然后在本目录执行：
+
+```bash
+git init
+git add .
+git commit -m "feat: profile README with scheduled Actions"
+git branch -M main
+git remote add origin https://github.com/lm041520/lm041520.git
+git push -u origin main
+```
+
+## 第一次启用定时任务
+
+1. 打开仓库 **Actions** 页
+2. 允许 Actions（若提示 Enable）
+3. 手动跑一次 **Generate Snake**
+4. 手动跑一次 **Refresh Quote**
+5. Settings → Actions → General → Workflow permissions 选 **Read and write**
+
+说明：GitHub 对 `schedule` 有排队延迟，不一定整点立刻跑；`workflow_dispatch` 可随时手动触发。
+
+## 自定义
+
+- 改自我介绍 / 项目表：编辑 `README.md`
+- 改每日句子：编辑 `.github/workflows/refresh-quote.yml` 里的 `quotes` 列表
+- 改定时：cron 是 UTC；`0 16 * * *` ≈ 北京时间每天 0 点

@@ -1,0 +1,75 @@
+name: Refresh Quote
+
+# 每天自动换一句「今日一句」，并更新页脚时间
+# 机制：HTML 注释标记 + 脚本替换中间内容 + commit push
+
+on:
+  schedule:
+    - cron: "0 16 * * *" # 每天 00:00 CST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update README quote
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from datetime import datetime, timezone, timedelta
+          from pathlib import Path
+          import random
+          import re
+
+          quotes = [
+              "与其收藏一百篇教程，不如亲手做完一个能演示的小项目。",
+              "求职季最怕空谈架构，不如把仓库和演示链接准备好。",
+              "网申填表很烦，所以我写了个扩展帮自己偷懒。",
+              "面试八股要背，更要能讲清楚自己项目里真实踩过的坑。",
+              "Agent 炫技容易，稳定交付难。",
+              "笔记是写给三个月后的自己看的。",
+              "星标不是目的，把问题真正解决掉才是。",
+              "今天能推进一寸，就比昨天只停留在计划里强。",
+              "工具先服务自己，好用了再开源给别人。",
+              "少说「赋能」，多说「我做了什么、结果怎样」。",
+          ]
+
+          readme = Path("README.md")
+          text = readme.read_text(encoding="utf-8")
+          quote = random.choice(quotes)
+          cst = timezone(timedelta(hours=8))
+          stamp = datetime.now(cst).strftime("%Y-%m-%d %H:%M CST")
+
+          text = re.sub(
+              r"<!--AUTO_QUOTE_START-->.*?<!--AUTO_QUOTE_END-->",
+              f"<!--AUTO_QUOTE_START-->\n> 💡 **今日一句**：{quote}\n<!--AUTO_QUOTE_END-->",
+              text,
+              count=1,
+              flags=re.S,
+          )
+          text = re.sub(
+              r"<!--AUTO_UPDATED_START-->.*?<!--AUTO_UPDATED_END-->",
+              f"<!--AUTO_UPDATED_START-->\n  <sub>Last auto-update: {stamp}</sub>\n  <!--AUTO_UPDATED_END-->",
+              text,
+              count=1,
+              flags=re.S,
+          )
+          readme.write_text(text, encoding="utf-8")
+          print(f"quote={quote}")
+          print(f"stamp={stamp}")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "chore: refresh daily quote"
+          git push
