@@ -69,16 +69,6 @@
 
 </details>
 
-### 技术栈
-
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=python,ts,react,nodejs,docker,git&perline=6" alt="skills" />
-</p>
-
-<p align="center">
-  <code>Python</code> · <code>TypeScript</code> · <code>React</code> · <code>LangChain</code> · <code>LangGraph</code> · <code>RAG</code> · <code>MCP</code> · <code>Chrome Extension (MV3)</code> · <code>Vite</code>
-</p>
-
 ### 正在关注 / 学习
 
 - Agent 稳定性：失败重试、可观测日志、人机协同节点  
@@ -96,6 +86,7 @@
 <!--GITHUB_DATA_END-->
 
 <!--GITHUB_LANGS_START-->
+<<<<<<< HEAD
 > **常用语言（按公开仓库代码量）**
 >
 > `Python      ` █████████░░░░░░░░░░░  **46.2%**
@@ -105,6 +96,18 @@
 > `Vue         ` █░░░░░░░░░░░░░░░░░░░  **2.2%**
 > `Jinja       ` █░░░░░░░░░░░░░░░░░░░  **1.9%**
 >
+=======
+**常用语言**（按公开仓库代码量）
+
+| 语言 | 占比 |
+| :--- | ---: |
+| Python | 46.2% |
+| TypeScript | 34.6% |
+| HTML | 10.3% |
+| CSS | 4.8% |
+| Vue | 2.2% |
+| Jinja | 1.9% |
+>>>>>>> c37fb74 (style: remove tech stack and use aligned language table)
 <!--GITHUB_LANGS_END-->
 
 ### 贡献概览
