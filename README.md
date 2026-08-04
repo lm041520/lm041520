@@ -80,7 +80,11 @@
 
 <!--GITHUB_DATA_START-->
 > 📦 GitHub 存储占用：**22.4 MB**
+<<<<<<< HEAD
 > 🏆 2026 年贡献次数：**466**
+=======
+> 🏆 2026 年贡献次数：**464**
+>>>>>>> 7a53747 (fix: resolve README conflict markers after cleanup)
 > 📜 公开仓库：**7**
 <!--GITHUB_DATA_END-->
 
