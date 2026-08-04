@@ -145,6 +145,44 @@ def rest_public_repo_stats() -> tuple[int, int]:
     return disk, count
 
 
+def year_contributions(year: int | None = None) -> int:
+    """Calendar-year contributions (commits/PRs/issues/reviews)."""
+    y = year or datetime.now(timezone.utc).year
+    from_iso = f"{y}-01-01T00:00:00Z"
+    to_iso = f"{y}-12-31T23:59:59Z"
+    data = graphql(
+        """
+        query($login: String!, $from: DateTime!, $to: DateTime!) {
+          user(login: $login) {
+            contributionsCollection(from: $from, to: $to) {
+              totalCommitContributions
+              totalIssueContributions
+              totalPullRequestContributions
+              totalPullRequestReviewContributions
+              restrictedContributionsCount
+            }
+          }
+        }
+        """,
+        {"login": USERNAME, "from": from_iso, "to": to_iso},
+    )
+    c = data["user"]["contributionsCollection"]
+    return int(
+        (c.get("totalCommitContributions") or 0)
+        + (c.get("totalIssueContributions") or 0)
+        + (c.get("totalPullRequestContributions") or 0)
+        + (c.get("totalPullRequestReviewContributions") or 0)
+        + (c.get("restrictedContributionsCount") or 0)
+    )
+
+
+def read_previous_contributions(text: str) -> int | None:
+    m = re.search(r"年贡献次数：\*\*(\d+)\*\*", text)
+    if not m:
+        return None
+    return int(m.group(1))
+
+
 def fetch_top_languages(limit: int = 6) -> list[tuple[str, int]]:
     """Aggregate language bytes across public owned repos."""
     totals: dict[str, int] = {}
@@ -275,11 +313,17 @@ def main() -> None:
         private_repos = 0
         use_viewer = False
 
+    text = README.read_text(encoding="utf-8")
+    previous = read_previous_contributions(text)
+
     try:
-        contributions = year_contributions()
+        contributions = year_contributions(year)
+        if contributions <= 0 and previous and previous > 0:
+            print(f"contributions returned {contributions}, keeping previous {previous}")
+            contributions = previous
     except Exception as exc:
         print(f"contributions lookup failed: {exc}")
-        contributions = 0
+        contributions = previous if previous is not None else 0
 
     try:
         rest = request_json(REST_USER)
@@ -305,7 +349,6 @@ def main() -> None:
     )
     langs_block = build_languages_block(languages)
 
-    text = README.read_text(encoding="utf-8")
     changed = False
 
     text, did = replace_marker(text, "<!--GITHUB_DATA_START-->", "<!--GITHUB_DATA_END-->", data_block)
