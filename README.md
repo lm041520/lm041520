@@ -80,23 +80,14 @@
 
 <!--GITHUB_DATA_START-->
 > 📦 GitHub 存储占用：**22.4 MB**
+<<<<<<< HEAD
 > 🏆 2026 年贡献次数：**464**
 > 🚫 **暂未开放招聘联系**
+=======
+> 🏆 2026 年贡献次数：**463**
+>>>>>>> 3272298 (chore: remove languages section and hireable status line)
 > 📜 公开仓库：**7**
 <!--GITHUB_DATA_END-->
-
-<!--GITHUB_LANGS_START-->
-**常用语言**（按公开仓库代码量）
-
-<p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/Python-46.2%25-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-34.6%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img alt="HTML" src="https://img.shields.io/badge/HTML-10.3%25-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="CSS" src="https://img.shields.io/badge/CSS-4.8%25-1572B6?style=for-the-badge&logo=css&logoColor=white" />
-  <img alt="Vue" src="https://img.shields.io/badge/Vue-2.2%25-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white" />
-  <img alt="Jinja" src="https://img.shields.io/badge/Jinja-1.9%25-B41717?style=for-the-badge" />
-</p>
-<!--GITHUB_LANGS_END-->
 
 ### 贡献概览
 

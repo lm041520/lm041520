@@ -63,15 +63,12 @@ def build_block(
     disk_kb: int,
     contributions: int,
     year: int,
-    hireable: bool,
     public_repos: int,
     private_repos: int | None,
 ) -> str:
-    hire_line = "💼 **开放求职联系**" if hireable else "🚫 **暂未开放招聘联系**"
     lines = [
         f"> 📦 GitHub 存储占用：**{format_size(disk_kb)}**",
         f"> 🏆 {year} 年贡献次数：**{contributions}**",
-        f"> {hire_line}",
         f"> 📜 公开仓库：**{public_repos}**",
     ]
     if private_repos is not None:
@@ -183,101 +180,6 @@ def read_previous_contributions(text: str) -> int | None:
     return int(m.group(1))
 
 
-def fetch_top_languages(limit: int = 6) -> list[tuple[str, int]]:
-    """Aggregate language bytes across public owned repos."""
-    totals: dict[str, int] = {}
-    page = 1
-    while True:
-        repos = request_json(
-            f"https://api.github.com/users/{USERNAME}/repos?per_page=100&page={page}&type=owner&sort=updated"
-        )
-        if not isinstance(repos, list) or not repos:
-            break
-        for repo in repos:
-            if repo.get("fork"):
-                continue
-            name = repo.get("full_name")
-            if not name:
-                continue
-            try:
-                langs = request_json(f"https://api.github.com/repos/{name}/languages")
-            except Exception:
-                continue
-            if not isinstance(langs, dict):
-                continue
-            for lang, size in langs.items():
-                totals[lang] = totals.get(lang, 0) + int(size or 0)
-        if len(repos) < 100:
-            break
-        page += 1
-
-    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)
-    return ranked[:limit]
-
-
-LANGUAGE_COLORS = {
-    "Python": "3776AB",
-    "TypeScript": "3178C6",
-    "JavaScript": "F7DF1E",
-    "HTML": "E34F26",
-    "CSS": "1572B6",
-    "Vue": "4FC08D",
-    "Jinja": "B41717",
-    "Go": "00ADD8",
-    "Rust": "DEA584",
-    "Java": "ED8B00",
-    "C++": "00599C",
-    "C": "A8B9CC",
-    "Shell": "4EAA25",
-    "Markdown": "000000",
-}
-
-LANGUAGE_LOGOS = {
-    "Python": "python",
-    "TypeScript": "typescript",
-    "JavaScript": "javascript",
-    "HTML": "html5",
-    "CSS": "css",
-    "Vue": "vuedotjs",
-    "Go": "go",
-    "Rust": "rust",
-    "Java": "openjdk",
-    "C++": "cplusplus",
-    "C": "c",
-    "Shell": "gnubash",
-    "Markdown": "markdown",
-}
-
-
-def build_languages_block(langs: list[tuple[str, int]]) -> str:
-    if not langs:
-        return "暂无公开语言数据\n"
-
-    total = sum(size for _, size in langs) or 1
-    badges: list[str] = []
-    for name, size in langs:
-        ratio = size / total * 100
-        color = LANGUAGE_COLORS.get(name, "0f6b72")
-        label = name.replace("-", "--").replace("_", "__")
-        message = f"{ratio:.1f}%".replace("%", "%25")
-        logo = LANGUAGE_LOGOS.get(name)
-        logo_part = f"&logo={logo}&logoColor=white" if logo else ""
-        # JS 黄底用黑字更清晰
-        if name == "JavaScript":
-            logo_part = "&logo=javascript&logoColor=black"
-        badges.append(
-            f'<img alt="{name}" src="https://img.shields.io/badge/{label}-{message}-{color}?style=for-the-badge{logo_part}" />'
-        )
-
-    joined = "\n  ".join(badges)
-    return (
-        "**常用语言**（按公开仓库代码量）\n\n"
-        '<p align="center">\n'
-        f"  {joined}\n"
-        "</p>\n"
-    )
-
-
 def replace_marker(text: str, start: str, end: str, body: str) -> tuple[str, bool]:
     if start not in text or end not in text:
         return text, False
@@ -295,12 +197,10 @@ def main() -> None:
     year = datetime.now(timezone.utc).year
 
     use_viewer = False
-    hireable = False
     if TOKEN:
         try:
-            me = graphql("query { viewer { login isHireable } }")["viewer"]
+            me = graphql("query { viewer { login } }")["viewer"]
             use_viewer = me.get("login") == USERNAME
-            hireable = bool(me.get("isHireable"))
         except Exception as exc:
             print(f"viewer lookup skipped: {exc}")
 
@@ -328,26 +228,16 @@ def main() -> None:
     try:
         rest = request_json(REST_USER)
         public_repos = max(public_repos, int(rest.get("public_repos") or 0))
-        if rest.get("hireable") is not None and not use_viewer:
-            hireable = bool(rest.get("hireable"))
     except urllib.error.HTTPError as exc:
         print(f"REST user fallback skipped: {exc.code}")
-
-    try:
-        languages = fetch_top_languages()
-    except Exception as exc:
-        print(f"languages lookup failed: {exc}")
-        languages = []
 
     data_block = build_block(
         disk_kb=disk_kb,
         contributions=contributions,
         year=year,
-        hireable=hireable,
         public_repos=public_repos,
         private_repos=private_repos if use_viewer else None,
     )
-    langs_block = build_languages_block(languages)
 
     changed = False
 
@@ -356,11 +246,6 @@ def main() -> None:
     if not did and "<!--GITHUB_DATA_START-->" not in text:
         raise SystemExit("README markers <!--GITHUB_DATA_START/END--> not found")
 
-    text, did = replace_marker(text, "<!--GITHUB_LANGS_START-->", "<!--GITHUB_LANGS_END-->", langs_block)
-    changed = changed or did
-    if not did and "<!--GITHUB_LANGS_START-->" not in text:
-        raise SystemExit("README markers <!--GITHUB_LANGS_START/END--> not found")
-
     if not changed:
         print("GitHub data already up to date, skip write")
     else:
@@ -368,7 +253,6 @@ def main() -> None:
 
     try:
         print(data_block)
-        print(langs_block)
     except UnicodeEncodeError:
         pass
 
