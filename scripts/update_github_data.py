@@ -182,15 +182,22 @@ def build_languages_block(langs: list[tuple[str, int]]) -> str:
         return "暂无公开语言数据\n"
 
     total = sum(size for _, size in langs) or 1
+    bar_width = 20
+    name_width = max(len(name) for name, _ in langs)
+    name_width = max(name_width, 10)
+
     lines = [
         "**常用语言**（按公开仓库代码量）",
         "",
-        "| 语言 | 占比 |",
-        "| :--- | ---: |",
+        "```text",
     ]
     for name, size in langs:
-        ratio = size / total * 100
-        lines.append(f"| {name} | {ratio:.1f}% |")
+        ratio = size / total
+        filled = max(1, round(ratio * bar_width)) if ratio > 0 else 0
+        filled = min(filled, bar_width)
+        bar = "█" * filled + "░" * (bar_width - filled)
+        lines.append(f"{name:<{name_width}}  {bar}  {ratio * 100:5.1f}%")
+    lines.append("```")
     return "\n".join(lines) + "\n"
 
 
