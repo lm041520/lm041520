@@ -209,6 +209,9 @@ def main() -> None:
     )
 
     text = README.read_text(encoding="utf-8")
+    if "<!--GITHUB_DATA_START-->" not in text or "<!--GITHUB_DATA_END-->" not in text:
+        raise SystemExit("README markers <!--GITHUB_DATA_START/END--> not found")
+
     updated = re.sub(
         r"<!--GITHUB_DATA_START-->.*?<!--GITHUB_DATA_END-->",
         f"<!--GITHUB_DATA_START-->\n{block}<!--GITHUB_DATA_END-->",
@@ -217,7 +220,13 @@ def main() -> None:
         flags=re.S,
     )
     if updated == text:
-        raise SystemExit("README markers <!--GITHUB_DATA_START/END--> not found")
+        print("GitHub data already up to date, skip write")
+        try:
+            print(block)
+        except UnicodeEncodeError:
+            pass
+        return
+
     README.write_text(updated, encoding="utf-8")
     try:
         print(block)
