@@ -177,28 +177,67 @@ def fetch_top_languages(limit: int = 6) -> list[tuple[str, int]]:
     return ranked[:limit]
 
 
+LANGUAGE_COLORS = {
+    "Python": "3776AB",
+    "TypeScript": "3178C6",
+    "JavaScript": "F7DF1E",
+    "HTML": "E34F26",
+    "CSS": "1572B6",
+    "Vue": "4FC08D",
+    "Jinja": "B41717",
+    "Go": "00ADD8",
+    "Rust": "DEA584",
+    "Java": "ED8B00",
+    "C++": "00599C",
+    "C": "A8B9CC",
+    "Shell": "4EAA25",
+    "Markdown": "000000",
+}
+
+LANGUAGE_LOGOS = {
+    "Python": "python",
+    "TypeScript": "typescript",
+    "JavaScript": "javascript",
+    "HTML": "html5",
+    "CSS": "css",
+    "Vue": "vuedotjs",
+    "Go": "go",
+    "Rust": "rust",
+    "Java": "openjdk",
+    "C++": "cplusplus",
+    "C": "c",
+    "Shell": "gnubash",
+    "Markdown": "markdown",
+}
+
+
 def build_languages_block(langs: list[tuple[str, int]]) -> str:
     if not langs:
         return "暂无公开语言数据\n"
 
     total = sum(size for _, size in langs) or 1
-    bar_width = 20
-    name_width = max(len(name) for name, _ in langs)
-    name_width = max(name_width, 10)
-
-    lines = [
-        "**常用语言**（按公开仓库代码量）",
-        "",
-        "```text",
-    ]
+    badges: list[str] = []
     for name, size in langs:
-        ratio = size / total
-        filled = max(1, round(ratio * bar_width)) if ratio > 0 else 0
-        filled = min(filled, bar_width)
-        bar = "█" * filled + "░" * (bar_width - filled)
-        lines.append(f"{name:<{name_width}}  {bar}  {ratio * 100:5.1f}%")
-    lines.append("```")
-    return "\n".join(lines) + "\n"
+        ratio = size / total * 100
+        color = LANGUAGE_COLORS.get(name, "0f6b72")
+        label = name.replace("-", "--").replace("_", "__")
+        message = f"{ratio:.1f}%".replace("%", "%25")
+        logo = LANGUAGE_LOGOS.get(name)
+        logo_part = f"&logo={logo}&logoColor=white" if logo else ""
+        # JS 黄底用黑字更清晰
+        if name == "JavaScript":
+            logo_part = "&logo=javascript&logoColor=black"
+        badges.append(
+            f'<img alt="{name}" src="https://img.shields.io/badge/{label}-{message}-{color}?style=for-the-badge{logo_part}" />'
+        )
+
+    joined = "\n  ".join(badges)
+    return (
+        "**常用语言**（按公开仓库代码量）\n\n"
+        '<p align="center">\n'
+        f"  {joined}\n"
+        "</p>\n"
+    )
 
 
 def replace_marker(text: str, start: str, end: str, body: str) -> tuple[str, bool]:
