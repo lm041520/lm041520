@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update README quote
         shell: bash
@@ -61,4 +63,5 @@ jobs:
           git add README.md
           git diff --staged --quiet && echo "No changes" && exit 0
           git commit -m "chore: refresh daily quote"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
