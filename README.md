@@ -80,12 +80,7 @@
 
 <!--GITHUB_DATA_START-->
 > 📦 GitHub 存储占用：**22.4 MB**
-<<<<<<< HEAD
-> 🏆 2026 年贡献次数：**464**
-> 🚫 **暂未开放招聘联系**
-=======
-> 🏆 2026 年贡献次数：**463**
->>>>>>> 3272298 (chore: remove languages section and hireable status line)
+> 🏆 2026 年贡献次数：**466**
 > 📜 公开仓库：**7**
 <!--GITHUB_DATA_END-->
 
