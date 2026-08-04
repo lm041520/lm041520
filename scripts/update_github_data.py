@@ -145,22 +145,65 @@ def rest_public_repo_stats() -> tuple[int, int]:
     return disk, count
 
 
-def year_contributions() -> int:
-    data = graphql(
-        """
-        query($login: String!) {
-          user(login: $login) {
-            contributionsCollection {
-              contributionCalendar { totalContributions }
-            }
-          }
-        }
-        """,
-        {"login": USERNAME},
+def fetch_top_languages(limit: int = 6) -> list[tuple[str, int]]:
+    """Aggregate language bytes across public owned repos."""
+    totals: dict[str, int] = {}
+    page = 1
+    while True:
+        repos = request_json(
+            f"https://api.github.com/users/{USERNAME}/repos?per_page=100&page={page}&type=owner&sort=updated"
+        )
+        if not isinstance(repos, list) or not repos:
+            break
+        for repo in repos:
+            if repo.get("fork"):
+                continue
+            name = repo.get("full_name")
+            if not name:
+                continue
+            try:
+                langs = request_json(f"https://api.github.com/repos/{name}/languages")
+            except Exception:
+                continue
+            if not isinstance(langs, dict):
+                continue
+            for lang, size in langs.items():
+                totals[lang] = totals.get(lang, 0) + int(size or 0)
+        if len(repos) < 100:
+            break
+        page += 1
+
+    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)
+    return ranked[:limit]
+
+
+def build_languages_block(langs: list[tuple[str, int]]) -> str:
+    if not langs:
+        return "> 暂无公开语言数据\n"
+
+    total = sum(size for _, size in langs) or 1
+    lines = ["> **常用语言（按公开仓库代码量）**", ">"]
+    bar_width = 20
+    for name, size in langs:
+        ratio = size / total
+        filled = max(1, round(ratio * bar_width)) if ratio > 0 else 0
+        bar = "█" * filled + "░" * (bar_width - filled)
+        lines.append(f"> `{name:<12}` {bar}  **{ratio * 100:.1f}%**")
+    lines.append(">")
+    return "\n".join(lines) + "\n"
+
+
+def replace_marker(text: str, start: str, end: str, body: str) -> tuple[str, bool]:
+    if start not in text or end not in text:
+        return text, False
+    updated = re.sub(
+        re.escape(start) + r".*?" + re.escape(end),
+        f"{start}\n{body}{end}",
+        text,
+        count=1,
+        flags=re.S,
     )
-    return int(
-        data["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
-    )
+    return updated, updated != text
 
 
 def main() -> None:
@@ -199,7 +242,13 @@ def main() -> None:
     except urllib.error.HTTPError as exc:
         print(f"REST user fallback skipped: {exc.code}")
 
-    block = build_block(
+    try:
+        languages = fetch_top_languages()
+    except Exception as exc:
+        print(f"languages lookup failed: {exc}")
+        languages = []
+
+    data_block = build_block(
         disk_kb=disk_kb,
         contributions=contributions,
         year=year,
@@ -207,31 +256,31 @@ def main() -> None:
         public_repos=public_repos,
         private_repos=private_repos if use_viewer else None,
     )
+    langs_block = build_languages_block(languages)
 
     text = README.read_text(encoding="utf-8")
-    if "<!--GITHUB_DATA_START-->" not in text or "<!--GITHUB_DATA_END-->" not in text:
+    changed = False
+
+    text, did = replace_marker(text, "<!--GITHUB_DATA_START-->", "<!--GITHUB_DATA_END-->", data_block)
+    changed = changed or did
+    if not did and "<!--GITHUB_DATA_START-->" not in text:
         raise SystemExit("README markers <!--GITHUB_DATA_START/END--> not found")
 
-    updated = re.sub(
-        r"<!--GITHUB_DATA_START-->.*?<!--GITHUB_DATA_END-->",
-        f"<!--GITHUB_DATA_START-->\n{block}<!--GITHUB_DATA_END-->",
-        text,
-        count=1,
-        flags=re.S,
-    )
-    if updated == text:
-        print("GitHub data already up to date, skip write")
-        try:
-            print(block)
-        except UnicodeEncodeError:
-            pass
-        return
+    text, did = replace_marker(text, "<!--GITHUB_LANGS_START-->", "<!--GITHUB_LANGS_END-->", langs_block)
+    changed = changed or did
+    if not did and "<!--GITHUB_LANGS_START-->" not in text:
+        raise SystemExit("README markers <!--GITHUB_LANGS_START/END--> not found")
 
-    README.write_text(updated, encoding="utf-8")
+    if not changed:
+        print("GitHub data already up to date, skip write")
+    else:
+        README.write_text(text, encoding="utf-8")
+
     try:
-        print(block)
+        print(data_block)
+        print(langs_block)
     except UnicodeEncodeError:
-        print(block.encode("utf-8", errors="replace").decode("ascii", errors="replace"))
+        pass
 
 
 if __name__ == "__main__":

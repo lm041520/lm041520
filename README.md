@@ -95,17 +95,23 @@
 > 📜 公开仓库：**7**
 <!--GITHUB_DATA_END-->
 
-### GitHub 图表
+<!--GITHUB_LANGS_START-->
+> **常用语言（按公开仓库代码量）**
+>
+> `Python      ` ████████████░░░░░░░░  **58.0%**
+> `TypeScript  ` ██████░░░░░░░░░░░░░░  **22.0%**
+> `JavaScript  ` ███░░░░░░░░░░░░░░░░░  **12.0%**
+>
+<!--GITHUB_LANGS_END-->
 
-<div align="center">
-  <img height="168" src="https://github-readme-stats.vercel.app/api?username=lm041520&show_icons=true&include_all_commits=true&count_private=true&theme=tokyonight&hide_border=true&locale=cn" alt="GitHub 统计" />
-  &nbsp;&nbsp;
-  <img height="168" src="https://github-readme-stats.vercel.app/api/top-langs/?username=lm041520&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&locale=cn" alt="常用语言" />
-  <br /><br />
-  <img src="https://streak-stats.demolab.com/?user=lm041520&theme=tokyonight&hide_border=true&locale=zh_Hans&date_format=j%20M%5B%20Y%5D" alt="贡献连续天数" />
-  <br /><br />
-  <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=lm041520&theme=tokyo-night&bg_color=1a1b27&color=70a5fd&line=bf91f3&point=38bdae&area=true&hide_border=true" alt="贡献活跃图" />
-</div>
+### 贡献概览
+
+<p align="center">
+  <img
+    alt="贡献连续天数"
+    src="https://streak-stats.demolab.com/?user=lm041520&locale=zh_Hans&hide_border=true&background=FFFFFF&ring=0F6B72&fire=0F6B72&currStreakNum=0F6B72&sideNums=24292F&currStreakLabel=0F6B72&sideLabels=57606A&dates=8B949E&date_format=j%20M%5B%20Y%5D"
+  />
+</p>
 
 ### 贡献轨迹
 
