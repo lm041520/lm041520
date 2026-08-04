@@ -1,77 +1,124 @@
+<div align="center">
+
 # Hi, I'm **xrzs** 👋
 
-<p align="left">
-  <a href="https://github.com/lm041520">
-    <img src="https://img.shields.io/badge/GitHub-lm041520-181717?style=flat-square&logo=github" alt="GitHub" />
-  </a>
-  <img src="https://img.shields.io/badge/Focus-LLM%20%2F%20Agent%20%2F%20RAG-0f6b72?style=flat-square" alt="Focus" />
-  <img src="https://komarev.com/ghpvc/?username=lm041520&label=Profile%20views&color=0f6b72&style=flat-square" alt="Profile views" />
-</p>
+**大模型应用工程师 · Agent / RAG / 工具落地**
 
-专注大模型应用开发（Agent / RAG），同步将求职与面试中的实践沉淀为开源工具与笔记。
+专注大模型应用开发，把求职与面试中的实践沉淀为开源工具与笔记。  
+用工程方式把「能聊」的模型，做成「能用」的产品能力。
+
+<br />
+
+[![GitHub](https://img.shields.io/badge/GitHub-lm041520-24292f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lm041520)
+[![Site](https://img.shields.io/badge/Site-cometxrzs.top-0f6b72?style=for-the-badge)](https://cometxrzs.top)
+[![Focus](https://img.shields.io/badge/Focus-LLM%20%2F%20Agent%20%2F%20RAG-3d5a5b?style=for-the-badge)](https://github.com/lm041520)
+
+</div>
+
+<br />
 
 <!--AUTO_QUOTE_START-->
-> 💡 **今日一句**：与其收藏一百篇教程，不如亲手做完一个能演示的小项目。
+> 今日一句 · 与其收藏一百篇教程，不如亲手做完一个能演示的小项目。
 <!--AUTO_QUOTE_END-->
 
 ---
 
-## 🔭 最近在做什么
+### 关于我
 
-- 求职中：投递网申、整理面试题、复盘项目表述
-- 维护开源小工具：网申助手 [Job-Submit](https://github.com/lm041520/Job-Submit)、面试题整理 Skill 等
-- 继续打磨 Agent / RAG 相关实践（八股笔记、个人助手Comet、记忆相关实验）
+- 方向：**大模型应用开发**，长期关注 Agent 编排、RAG 检索增强、工具调用与落地体验
+- 习惯：自己先当用户——求职填表烦了就写 [Job-Submit](https://github.com/lm041520/Job-Submit)；面试要复盘就整理八股与题库
+- 站点：[cometxrzs.top](https://cometxrzs.top)（[Comet](https://github.com/lm041520/Comet)）作为项目与内容入口
+- 当前：求职推进中，同时持续开源可演示的小项目与笔记
 
-## 🧩 精选项目
+### 擅长什么
 
-| 项目 | 简介 | Stars |
-| --- | --- | --- |
-| [agent-eight-legged-essay](https://github.com/lm041520/agent-eight-legged-essay) | 大模型应用开发八股 | ![stars](https://img.shields.io/github/stars/lm041520/agent-eight-legged-essay?style=flat-square) |
-| [Comet](https://github.com/lm041520/Comet) | 个人站点 / 项目入口 · [cometxrzs.top](https://cometxrzs.top) | ![stars](https://img.shields.io/github/stars/lm041520/Comet?style=flat-square) |
-| [LangGraph-trip-planner](https://github.com/lm041520/LangGraph-trip-planner) | LangGraph 行程规划 Agent 示例 | ![stars](https://img.shields.io/github/stars/lm041520/LangGraph-trip-planner?style=flat-square) |
-| [Job-Submit](https://github.com/lm041520/Job-Submit) | Chrome/Edge 网申资料管理与一键填表扩展 | ![stars](https://img.shields.io/github/stars/lm041520/Job-Submit?style=flat-square) |
-| [MemoryBear](https://github.com/lm041520/MemoryBear) | 给 AI 加上更接近人类的记忆能力 | ![stars](https://img.shields.io/github/stars/lm041520/MemoryBear?style=flat-square) |
-| [interview-case-organizer](https://github.com/lm041520/interview-case-organizer) | 跨平台面试题整理 Skill | ![stars](https://img.shields.io/github/stars/lm041520/interview-case-organizer?style=flat-square) |
+| 领域 | 具体能力 |
+| --- | --- |
+| **Agent 编排** | LangChain / LangGraph 工作流、多步骤任务拆解、工具调用与状态管理 |
+| **RAG 应用** | 文档解析、检索召回、上下文压缩、问答链路工程化 |
+| **MCP / 工具链** | 把外部能力接到 Agent，形成可复用的技能与自动化流程 |
+| **前端与扩展** | React + TypeScript、Chrome MV3 扩展、Vite 工程化 |
+| **求职向沉淀** | 面试八股、面经整理、网申提效工具 |
 
-## 🛠️ 技术栈
+### 最近在做什么
 
-```text
-Python · TypeScript · React
-LangChain / LangGraph · RAG · MCP
-Chrome Extension (MV3) · Vite
-```
+- **求职**：网申投递、面试复盘、项目表述与演示打磨
+- **工具**：维护网申助手、面试题整理 Skill，把重复劳动自动化
+- **实践**：Agent / RAG 示例与笔记（八股仓库、个人助手 Comet、行程规划 Demo）
 
-<p>
-  <img src="https://skillicons.dev/icons?i=python,ts,react,nodejs,docker,git" alt="skills" />
-</p>
+### 精选项目
 
-## 📊 GitHub 数据
+|  | 项目 | 说明 | 亮点 |
+| :---: | --- | --- | --- |
+| 📘 | [agent-eight-legged-essay](https://github.com/lm041520/agent-eight-legged-essay) | 大模型应用开发八股 | 高频考点结构化整理，面试向 |
+| ☄️ | [Comet](https://github.com/lm041520/Comet) | 个人站点 / 项目入口 | 在线：[cometxrzs.top](https://cometxrzs.top) |
+| 🗺️ | [LangGraph-trip-planner](https://github.com/lm041520/LangGraph-trip-planner) | LangGraph 行程规划 Agent | 多节点编排与工具调用示例 |
+| 🧾 | [Job-Submit](https://github.com/lm041520/Job-Submit) | 网申资料管理与一键填表 | 规则填充 + AI 补漏纠错 + 信息浮窗 |
+| 🗂️ | [interview-case-organizer](https://github.com/lm041520/interview-case-organizer) | 面试题整理 Skill | 跨平台、可复用的整理流程 |
+
+<details>
+<summary><b>想快速了解某个项目？点开看一句总结</b></summary>
+
+<br />
+
+- **八股仓库**：把大模型应用面试里常问的概念、流程、对比题收敛成可读笔记  
+- **Comet**：个人对外主页，集中展示项目与内容  
+- **行程规划 Agent**：用 LangGraph 演示「规划 → 调用工具 → 汇总」的完整链路  
+- **Job-Submit**：本地保存求职资料，在招聘站一键/浮窗填表，可选 AI 复核空白与错填  
+- **interview-case-organizer**：把零散面经/截图整理进可检索的题库结构  
+
+</details>
+
+### 技术栈
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=lm041520&show_icons=true&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&icon_color=0f6b72&text_color=57606a" alt="stats" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=lm041520&layout=compact&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&text_color=57606a" alt="top languages" />
+  <img src="https://skillicons.dev/icons?i=python,ts,react,nodejs,docker,git&perline=6" alt="skills" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=lm041520&theme=transparent&hide_border=true&background=00000000&ring=0f6b72&fire=0f6b72&currStreakLabel=0f6b72" alt="streak" />
+  <code>Python</code> · <code>TypeScript</code> · <code>React</code> · <code>LangChain</code> · <code>LangGraph</code> · <code>RAG</code> · <code>MCP</code> · <code>Chrome Extension (MV3)</code> · <code>Vite</code>
 </p>
 
-## 🐍 贡献热力动画
+### 正在关注 / 学习
 
-<!-- 由 GitHub Actions 每日生成，首次需跑一次 workflow -->
-<p align="center">
+- Agent 稳定性：失败重试、可观测日志、人机协同节点  
+- RAG 质量：召回精度、噪声控制、引用可追溯  
+- 端侧与扩展场景：浏览器里的 AI 辅助工作流（以网申助手为实践）  
+- 把面试表达和仓库演示对齐——能讲清楚，也能点开就跑  
+
+### 我的 GitHub 数据
+
+<!--GITHUB_DATA_START-->
+> 📦 **22.4 MB** Used in GitHub's Storage
+> 🏆 **0** Contributions in the Year 2026
+> 🚫 **Not Opted to Hire**
+> 📜 **7** Public Repositories
+<!--GITHUB_DATA_END-->
+
+### GitHub 图表
+
+<div align="center">
+  <img height="160" src="https://github-readme-stats.vercel.app/api?username=lm041520&show_icons=true&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&icon_color=0f6b72&text_color=57606a&ring_color=0f6b72" alt="stats" />
+  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=lm041520&layout=compact&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&text_color=57606a" alt="languages" />
+  <br />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=lm041520&theme=transparent&hide_border=true&background=00000000&ring=0f6b72&fire=0f6b72&currStreakLabel=0f6b72&sideLabels=57606a&dates=8b949e" alt="streak" />
+</div>
+
+### 贡献轨迹
+
+<div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lm041520/lm041520/output/github-contribution-grid-snake-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/lm041520/lm041520/output/github-contribution-grid-snake.svg" />
-    <img alt="github contribution snake" src="https://raw.githubusercontent.com/lm041520/lm041520/output/github-contribution-grid-snake.svg" />
+    <img alt="contribution snake" src="https://raw.githubusercontent.com/lm041520/lm041520/output/github-contribution-grid-snake.svg" />
   </picture>
-</p>
+</div>
 
 ---
 
-<p align="center">
-  <i>README 由 GitHub Actions 定时刷新「今日一句」；蛇图每日更新。</i><br />
-  <!--AUTO_UPDATED_START-->
-  <sub>Last auto-update: pending first workflow run</sub>
-  <!--AUTO_UPDATED_END-->
-</p>
+<div align="center">
+
+欢迎交流大模型应用、Agent 落地与开源协作。  
+更多内容见：[GitHub](https://github.com/lm041520) · [个人站点](https://cometxrzs.top)
+
+</div>

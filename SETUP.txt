@@ -10,8 +10,9 @@ https://docs.github.com/en/account-and-profile/how-tos/profile-customization/man
 
 1. **个人介绍 + 精选项目 + 技术栈**
 2. **GitHub Stats / Top Langs / Streak**（第三方卡片）
-3. **贡献蛇图**：Actions 每天生成 SVG，推到 `output` 分支
-4. **今日一句**：Actions 每天随机刷新一句，并更新页脚时间
+3. **我的 GitHub 数据**：Actions 每天刷新存储占用、本年贡献、公开/私有仓数量等
+4. **贡献蛇图**：Actions 每天生成 SVG，推到 `output` 分支
+5. **今日一句**：Actions 每天随机刷新一句
 
 ## 创建并推送
 
@@ -39,7 +40,14 @@ git push -u origin main
 2. 允许 Actions（若提示 Enable）
 3. 手动跑一次 **Generate Snake**
 4. 手动跑一次 **Refresh Quote**
-5. Settings → Actions → General → Workflow permissions 选 **Read and write**
+5. 手动跑一次 **Update GitHub Data**
+6. Settings → Actions → General → Workflow permissions 选 **Read and write**
+
+若要显示 **Private Repositories** 与更完整的 Storage：
+1. GitHub → Settings → Developer settings → Personal access tokens
+2. 新建 classic token，勾选 `repo`、`read:user`
+3. 仓库 Settings → Secrets and variables → Actions → New repository secret
+4. Name: `PROFILE_STATS_TOKEN`，Value: 你的 token
 
 说明：GitHub 对 `schedule` 有排队延迟，不一定整点立刻跑；`workflow_dispatch` 可随时手动触发。
 

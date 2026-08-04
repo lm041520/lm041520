@@ -1,0 +1,47 @@
+name: Update GitHub Data
+
+# 定时刷新 README 里的「我的 GitHub 数据」
+# 可选：在仓库 Settings → Secrets 添加 PROFILE_STATS_TOKEN
+# （classic PAT，勾选 read:user + repo），即可统计私有仓库数量与更完整占用
+
+on:
+  schedule:
+    - cron: "0 17 * * *" # 约每天 01:00 CST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update_github_data.py"
+      - ".github/workflows/update-github-data.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh stats
+        env:
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+          # 优先用个人 PAT（可看私有仓）；否则退回 GITHUB_TOKEN（仅公开数据）
+          PROFILE_STATS_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update_github_data.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "chore: update GitHub profile data"
+          git push

@@ -22,7 +22,6 @@ jobs:
         shell: bash
         run: |
           python3 <<'PY'
-          from datetime import datetime, timezone, timedelta
           from pathlib import Path
           import random
           import re
@@ -43,26 +42,16 @@ jobs:
           readme = Path("README.md")
           text = readme.read_text(encoding="utf-8")
           quote = random.choice(quotes)
-          cst = timezone(timedelta(hours=8))
-          stamp = datetime.now(cst).strftime("%Y-%m-%d %H:%M CST")
 
           text = re.sub(
               r"<!--AUTO_QUOTE_START-->.*?<!--AUTO_QUOTE_END-->",
-              f"<!--AUTO_QUOTE_START-->\n> 💡 **今日一句**：{quote}\n<!--AUTO_QUOTE_END-->",
-              text,
-              count=1,
-              flags=re.S,
-          )
-          text = re.sub(
-              r"<!--AUTO_UPDATED_START-->.*?<!--AUTO_UPDATED_END-->",
-              f"<!--AUTO_UPDATED_START-->\n  <sub>Last auto-update: {stamp}</sub>\n  <!--AUTO_UPDATED_END-->",
+              f"<!--AUTO_QUOTE_START-->\n> 今日一句 · {quote}\n<!--AUTO_QUOTE_END-->",
               text,
               count=1,
               flags=re.S,
           )
           readme.write_text(text, encoding="utf-8")
           print(f"quote={quote}")
-          print(f"stamp={stamp}")
           PY
 
       - name: Commit and push
