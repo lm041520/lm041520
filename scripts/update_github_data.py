@@ -179,17 +179,18 @@ def fetch_top_languages(limit: int = 6) -> list[tuple[str, int]]:
 
 def build_languages_block(langs: list[tuple[str, int]]) -> str:
     if not langs:
-        return "> 暂无公开语言数据\n"
+        return "暂无公开语言数据\n"
 
     total = sum(size for _, size in langs) or 1
-    lines = ["> **常用语言（按公开仓库代码量）**", ">"]
-    bar_width = 20
+    lines = [
+        "**常用语言**（按公开仓库代码量）",
+        "",
+        "| 语言 | 占比 |",
+        "| :--- | ---: |",
+    ]
     for name, size in langs:
-        ratio = size / total
-        filled = max(1, round(ratio * bar_width)) if ratio > 0 else 0
-        bar = "█" * filled + "░" * (bar_width - filled)
-        lines.append(f"> `{name:<12}` {bar}  **{ratio * 100:.1f}%**")
-    lines.append(">")
+        ratio = size / total * 100
+        lines.append(f"| {name} | {ratio:.1f}% |")
     return "\n".join(lines) + "\n"
 
 
