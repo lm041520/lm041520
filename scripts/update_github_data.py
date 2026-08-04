@@ -51,11 +51,32 @@ def graphql(query: str, variables: dict | None = None) -> dict:
 
 def format_size(kb: float) -> str:
     if kb < 1024:
-        return f"{kb:.1f} kB"
+        return f"{kb:.1f} KB"
     mb = kb / 1024
     if mb < 1024:
         return f"{mb:.1f} MB"
     return f"{mb / 1024:.2f} GB"
+
+
+def build_block(
+    *,
+    disk_kb: int,
+    contributions: int,
+    year: int,
+    hireable: bool,
+    public_repos: int,
+    private_repos: int | None,
+) -> str:
+    hire_line = "💼 **开放求职联系**" if hireable else "🚫 **暂未开放招聘联系**"
+    lines = [
+        f"> 📦 GitHub 存储占用：**{format_size(disk_kb)}**",
+        f"> 🏆 {year} 年贡献次数：**{contributions}**",
+        f"> {hire_line}",
+        f"> 📜 公开仓库：**{public_repos}**",
+    ]
+    if private_repos is not None:
+        lines.append(f"> 🔑 私有仓库：**{private_repos}**")
+    return "\n".join(lines) + "\n"
 
 
 def page_owned_repos(*, use_viewer: bool) -> tuple[int, int, int]:
@@ -140,27 +161,6 @@ def year_contributions() -> int:
     return int(
         data["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
     )
-
-
-def build_block(
-    *,
-    disk_kb: int,
-    contributions: int,
-    year: int,
-    hireable: bool,
-    public_repos: int,
-    private_repos: int | None,
-) -> str:
-    hire_line = "💼 **Open to opportunities**" if hireable else "🚫 **Not Opted to Hire**"
-    lines = [
-        f"> 📦 **{format_size(disk_kb)}** Used in GitHub's Storage",
-        f"> 🏆 **{contributions}** Contributions in the Year {year}",
-        f"> {hire_line}",
-        f"> 📜 **{public_repos}** Public Repositories",
-    ]
-    if private_repos is not None:
-        lines.append(f"> 🔑 **{private_repos}** Private Repositories")
-    return "\n".join(lines) + "\n"
 
 
 def main() -> None:

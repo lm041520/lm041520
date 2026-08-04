@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -44,4 +46,6 @@ jobs:
           git add README.md
           git diff --staged --quiet && echo "No changes" && exit 0
           git commit -m "chore: update GitHub profile data"
-          git push
+          # 你本地或其他 Action 可能刚推过 main，先 rebase 再推，避免 non-fast-forward
+          git pull --rebase origin main
+          git push origin HEAD:main

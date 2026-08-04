@@ -10,7 +10,7 @@
 <br />
 
 [![GitHub](https://img.shields.io/badge/GitHub-lm041520-24292f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lm041520)
-[![Site](https://img.shields.io/badge/Site-cometxrzs.top-0f6b72?style=for-the-badge)](https://cometxrzs.top)
+[![Comet](https://img.shields.io/badge/Comet-Demo-0f6b72?style=for-the-badge)](https://cometxrzs.top)
 [![Focus](https://img.shields.io/badge/Focus-LLM%20%2F%20Agent%20%2F%20RAG-3d5a5b?style=for-the-badge)](https://github.com/lm041520)
 
 </div>
@@ -27,7 +27,7 @@
 
 - 方向：**大模型应用开发**，长期关注 Agent 编排、RAG 检索增强、工具调用与落地体验
 - 习惯：自己先当用户——求职填表烦了就写 [Job-Submit](https://github.com/lm041520/Job-Submit)；面试要复盘就整理八股与题库
-- 站点：[cometxrzs.top](https://cometxrzs.top)（[Comet](https://github.com/lm041520/Comet)）作为项目与内容入口
+- 代表项目：[Comet（彗记）](https://github.com/lm041520/Comet) — 个人 AI 知识库与记忆助手（[在线演示](https://cometxrzs.top)）
 - 当前：求职推进中，同时持续开源可演示的小项目与笔记
 
 ### 擅长什么
@@ -44,14 +44,14 @@
 
 - **求职**：网申投递、面试复盘、项目表述与演示打磨
 - **工具**：维护网申助手、面试题整理 Skill，把重复劳动自动化
-- **实践**：Agent / RAG 示例与笔记（八股仓库、个人助手 Comet、行程规划 Demo）
+- **实践**：Agent / RAG 示例与笔记（八股仓库、Comet 知识库助手、行程规划 Demo）
 
 ### 精选项目
 
 |  | 项目 | 说明 | 亮点 |
 | :---: | --- | --- | --- |
 | 📘 | [agent-eight-legged-essay](https://github.com/lm041520/agent-eight-legged-essay) | 大模型应用开发八股 | 高频考点结构化整理，面试向 |
-| ☄️ | [Comet](https://github.com/lm041520/Comet) | 个人站点 / 项目入口 | 在线：[cometxrzs.top](https://cometxrzs.top) |
+| ☄️ | [Comet](https://github.com/lm041520/Comet) | 个人 AI 知识库与记忆助手 | Agent 编排知识库 / 记忆 / 联网 · [演示](https://cometxrzs.top) |
 | 🗺️ | [LangGraph-trip-planner](https://github.com/lm041520/LangGraph-trip-planner) | LangGraph 行程规划 Agent | 多节点编排与工具调用示例 |
 | 🧾 | [Job-Submit](https://github.com/lm041520/Job-Submit) | 网申资料管理与一键填表 | 规则填充 + AI 补漏纠错 + 信息浮窗 |
 | 🗂️ | [interview-case-organizer](https://github.com/lm041520/interview-case-organizer) | 面试题整理 Skill | 跨平台、可复用的整理流程 |
@@ -62,7 +62,7 @@
 <br />
 
 - **八股仓库**：把大模型应用面试里常问的概念、流程、对比题收敛成可读笔记  
-- **Comet**：个人对外主页，集中展示项目与内容  
+- **Comet（彗记）**：多用户 AI 知识库 + 记忆助手；RAG 混合检索、Neo4j 记忆图谱，LangChain Agent 自主编排知识库 / 记忆 / 联网工具  
 - **行程规划 Agent**：用 LangGraph 演示「规划 → 调用工具 → 汇总」的完整链路  
 - **Job-Submit**：本地保存求职资料，在招聘站一键/浮窗填表，可选 AI 复核空白与错填  
 - **interview-case-organizer**：把零散面经/截图整理进可检索的题库结构  
@@ -89,19 +89,22 @@
 ### 我的 GitHub 数据
 
 <!--GITHUB_DATA_START-->
-> 📦 **22.4 MB** Used in GitHub's Storage
-> 🏆 **462** Contributions in the Year 2026
-> 🚫 **Not Opted to Hire**
-> 📜 **7** Public Repositories
+> 📦 GitHub 存储占用：**22.4 MB**
+> 🏆 2026 年贡献次数：**462**
+> 🚫 **暂未开放招聘联系**
+> 📜 公开仓库：**7**
 <!--GITHUB_DATA_END-->
 
 ### GitHub 图表
 
 <div align="center">
-  <img height="160" src="https://github-readme-stats.vercel.app/api?username=lm041520&show_icons=true&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&icon_color=0f6b72&text_color=57606a&ring_color=0f6b72" alt="stats" />
-  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=lm041520&layout=compact&theme=transparent&hide_border=true&bg_color=00000000&title_color=0f6b72&text_color=57606a" alt="languages" />
-  <br />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=lm041520&theme=transparent&hide_border=true&background=00000000&ring=0f6b72&fire=0f6b72&currStreakLabel=0f6b72&sideLabels=57606a&dates=8b949e" alt="streak" />
+  <img height="168" src="https://github-readme-stats.vercel.app/api?username=lm041520&show_icons=true&include_all_commits=true&count_private=true&theme=tokyonight&hide_border=true&locale=cn" alt="GitHub 统计" />
+  &nbsp;&nbsp;
+  <img height="168" src="https://github-readme-stats.vercel.app/api/top-langs/?username=lm041520&layout=compact&langs_count=8&theme=tokyonight&hide_border=true&locale=cn" alt="常用语言" />
+  <br /><br />
+  <img src="https://streak-stats.demolab.com/?user=lm041520&theme=tokyonight&hide_border=true&locale=zh_Hans&date_format=j%20M%5B%20Y%5D" alt="贡献连续天数" />
+  <br /><br />
+  <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=lm041520&theme=tokyo-night&bg_color=1a1b27&color=70a5fd&line=bf91f3&point=38bdae&area=true&hide_border=true" alt="贡献活跃图" />
 </div>
 
 ### 贡献轨迹
@@ -119,6 +122,6 @@
 <div align="center">
 
 欢迎交流大模型应用、Agent 落地与开源协作。  
-更多内容见：[GitHub](https://github.com/lm041520) · [个人站点](https://cometxrzs.top)
+更多内容见：[GitHub](https://github.com/lm041520) · [Comet 演示](https://cometxrzs.top)
 
 </div>
